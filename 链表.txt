@@ -1,0 +1,148 @@
+#include <iostream>
+#include   <stdlib.h>
+using namespace std;
+class AD
+{
+public:
+    int num;
+    bool use;
+    AD* next;
+};
+typedef AD* point;
+void create(point &pHead)
+{
+    pHead=new AD;
+    pHead->num=-1;
+    pHead->use=false;
+    pHead->next=NULL;
+    cout<<"创建成功"<<endl;
+    return;
+}
+void insert(point pHead)
+{
+    point pCur=pHead;
+
+    while(pCur->next!=NULL)
+    {
+        pCur=pCur->next;
+    }
+    point pPro=new AD;
+
+    cout<<"请输入要插入的值"<<endl;
+    cin>>pPro->num;
+    pPro->use=false;
+    pPro->next=NULL;
+    pCur->next=pPro;
+    cout<<"插入成功"<<endl;
+    return;
+}
+void print(point pHead)
+{
+    cout<<"队列中的情况:";
+    int flg=0;
+    while(pHead->next!=NULL)
+    {
+        flg=1;
+        pHead=pHead->next;
+        cout<<pHead->num<<" ";
+    }
+    if(!flg)
+        cout<<"啥玩意儿也没有！！";
+    cout<<endl;
+}
+void delet(point pHead)
+{
+    cout<<"请输入要删除的值"<<endl;
+    int rt;
+    cin>>rt;
+    point pCur=pHead;
+    int flg=0;
+    while(pCur->next!=NULL)
+    {
+        if(pCur->next->num==rt)
+        {
+            flg=1;
+            pCur->next=pCur->next->next;
+            cout<<"删除成功！！"<<endl;
+
+        }
+        pCur=pCur->next;
+    }
+    if(!flg)
+    {
+        cout<<"要删除的值不存在!!"<<endl;
+    }
+}
+
+void instead(point pHead)
+{
+    cout<<"请输入要替换的值"<<endl;
+    int rt;
+    cin>>rt;
+    cout<<"请输入要成替换的值"<<endl;
+    int dd;
+    cin>>dd;
+    point pCur=pHead;
+    int flg=0;
+    while(pCur->next!=NULL)
+    {
+        if(pCur->next->num==rt)
+        {
+            flg=1;
+            pCur->next->num=dd;
+            cout<<"替换成功！！"<<endl;
+
+        }
+        pCur=pCur->next;
+    }
+    if(!flg)
+    {
+        cout<<"要替换的值不存在!!"<<endl;
+    }
+}
+void destory(point pHead)
+{
+    point pCur=pHead->next;
+
+    while(pHead->next!=NULL)
+    {
+        delete pHead;
+        pHead =pCur;
+        pCur=pCur->next;
+    }
+    cout<<"删除链表成功！！"<<endl;
+    return;
+}
+int main()
+{
+    point a;
+    create(a);
+
+    int op;
+    while(1)
+    {
+        cout<<"请输入要进行的操作：0打印,1插入,2删除，3替换，4退出"<<endl;
+        cin>>op;
+        switch(op)
+        {
+        case 1:
+            insert(a);
+            break;
+        case 2:
+            delet(a);
+            break;
+        case 0:
+            print(a);
+            break;
+
+        case 3:
+            instead(a);
+            break;
+        case 4:
+            destory(a);
+            exit(0);
+        }
+    }
+
+    return 0;
+}
